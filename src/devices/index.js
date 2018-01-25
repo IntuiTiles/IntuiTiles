@@ -2,9 +2,8 @@ const request = require('request')
 const rp = require('request-promise')
 
 
-
 /**
- * Gets a list of devices
+ * Gets a list of devices.
  *
  * @param {Object} client - Client object previously instantiated
  * @param {string} capability - The capability to filter by; if not specified,
@@ -18,7 +17,7 @@ const rp = require('request-promise')
 export function list(client, capability, url, devicesAccum) {
     let options = {
         method: 'GET',
-        url: url ? url : client.url + "devices",
+        url: client.url + "devices",
         headers: client.headers,
         qs: capability ? {capability: capability} : {},
         json: true
@@ -35,8 +34,8 @@ export function list(client, capability, url, devicesAccum) {
             return list(options, capability, response._links.next.href, devicesAccum)
         }
         return devicesAccum
-    })
-    .catch(function(err) {
+        })
+        .catch(function(err) {
         console.log(`Error getting devices: ${err}`)
     })
 }
@@ -57,12 +56,6 @@ export function getOne(client, deviceId) {
     }
 
     return rp(options)
-    .then(response => {
-        return response
-    })
-    .catch(function(err) {
-        console.log(`Error getting device: ${err}`)
-    })
 }
 
 
@@ -83,12 +76,6 @@ export function getOne(client, deviceId) {
     }
 
     return rp(options)
-    .then(response => {
-        return response
-    })
-    .catch(function(err) {
-        console.log(`Error getting device status: ${err}`)
-    })
  }
 
 
@@ -110,12 +97,6 @@ export function getComponentStatus(client, deviceId, componentId){
     }
 
     return rp(options)
-    .then(response => {
-        return response
-    })
-    .catch(function(err) {
-        console.log(`Error getting device component status: ${err}`)
-    })
  }
 
  /**
@@ -137,13 +118,8 @@ export function getCapabilityStatus(client, deviceId, componentId, capabilityId)
     }
 
     return rp(options)
-    .then(response => {
-        return response
-    })
-    .catch(function(err) {
-        console.log(`Error getting device capability status: ${err}`)
-    })
  }
+
 
 
  /**
@@ -183,3 +159,36 @@ export function executeCommand(client, deviceId, componentId, capabilityId, comm
     return rp(options)
  }
 
+
+ /**
+ * Get supported attributes of a device.
+ *
+ * @param {Object{}} client - Client object previously instantiated
+ * @param {string} deviceId - the selected Device ID
+ * @returns {Object} - The request-promise for this API request.
+ */
+
+export function getSupportedAttributes(client, deviceId){
+	
+    let options = {
+        method: 'GET',
+        url: client.url + "devices/"+deviceId+"/[getSupportedAttributes]",
+        headers: client.headers,
+        json: true
+    }
+    
+
+    return rp(options)
+    .then(response => {
+        if (!attrAccum) {
+            attrAccum = []
+        }
+        attrAccum = attrAccum.concat(response.items)
+
+        return attrAccum
+        })
+        .catch(function(err) {
+        console.log(`Error getting attributes: ${err}`)
+    })
+	
+ }

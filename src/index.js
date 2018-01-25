@@ -1,8 +1,5 @@
-import * as devices from './devices'
-import * as apps from './apps'
-import * as locations from './locations'
-import * as installedApps from './installedapps'
-
+import * as device from './devices'
+import {getLocationsFunction, showLocationFunction} from './locations'
 
 export class iTilesClient {
     constructor(access_token) {
@@ -21,7 +18,7 @@ export class iTilesClient {
     
     /**
      * Gets a list of locations.
-     * @param {Object} client - Client object
+     *
      * @param {string} capability - The capability to filter by; if not specified,
      *  all locations will be returned.
      * @param {Array} locationsAccum - An accumulator for recursive API calls to
@@ -29,8 +26,10 @@ export class iTilesClient {
      * 
      * @returns {Object} - The request-promise for this API request.
      */
+
+
     listLocations(client, locationsAccum) {
-        return locations.list(client, locationsAccum)
+        return getLocationsFunction(client, locationsAccum)
     }
 
     
@@ -42,7 +41,7 @@ export class iTilesClient {
      * @returns {Object} - The request-promise for this API call.
      */
     showLocation(client, locationId) {
-        return locations.show(client, locationId)
+        return showLocationFunction(client, locationId)
     }
 
 
@@ -62,7 +61,7 @@ export class iTilesClient {
 
 
     listDevices(client, capability,devicesAccum) {
-        return devices.list(client, capability,devicesAccum)
+        return device.list(client, capability, devicesAccum)
     }
 
     
@@ -74,7 +73,7 @@ export class iTilesClient {
      * @returns {Object} - The request-promise for this API call.
      */
     showDevice(client, deviceId) {
-        return devices.getOne(client, deviceId)
+        return device.getOne(client, deviceId)
     }
 
 
@@ -86,7 +85,7 @@ export class iTilesClient {
      * @returns {Object} - The request-promise for this API call.
      */
     showDeviceFullStatus(client, deviceId) {
-        return devices.getFullStatus(client, deviceId)
+        return device.getFullStatus(client, deviceId)
     }
 
 
@@ -100,7 +99,7 @@ export class iTilesClient {
      * @returns {Object} - The request-promise for this API call.
      */
     showDeviceComponentStatus(client, deviceId, component) {
-        return devices.getComponentStatus(client, deviceId, component)
+        return device.getComponentStatus(client, deviceId, component)
     }
 
 
@@ -116,7 +115,7 @@ export class iTilesClient {
      * @returns {Object} - The request-promise for this API call.
      */
     showDeviceCapabilityStatus(client, deviceId, componentId, capabilityId) {
-        return devices.getCapabilityStatus(client, deviceId, componentId, capabilityId)
+        return device.getCapabilityStatus(client, deviceId, componentId, capabilityId)
     }
 
 
@@ -136,39 +135,19 @@ export class iTilesClient {
      * @returns {Object} - The request-promise for this API call.
      */
     executeDeviceCommands(client, deviceId, componentId, capabilityId, command, args) {
-        return devices.executeCommand(client, deviceId, componentId, capabilityId, command, args)
+        return device.executeCommand(client, deviceId, componentId, capabilityId, command, args)
     }
-
-
+	
     /**
-     * Apps
-     */
-
-    /**
-     * Gets a list of apps.
-     * @param {Object} client - Client object
-     *  all apps will be returned.
-     * @param {Array} appsAccum - An accumulator for recursive API calls to
-     *  handle paged result sets. Calling clients should not need to specify this.
-     * 
-     * @returns {Object} - The request-promise for this API request.
-     */
-    listApps(client, appsAccum) {
-        return apps.list(client, appsAccum)
-    }
-
-    
-    /**
-     * Returns a request-promise for the status of the specified appId.
+     * Returns a request-promise for the supported attribues of the specified deviceId.
      *
-     * @param {string} appsId - The ID of the app.
+     * @param {string} deviceId - The ID of the device.
      *
      * @returns {Object} - The request-promise for this API call.
      */
-    showApp(client, appId) {
-        return apps.show(client, appId)
+	listSupportedAttributes(client, deviceId) {
+        return getSupportedAttributes(client, deviceId)
     }
-
     
 
 }

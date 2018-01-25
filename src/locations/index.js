@@ -14,7 +14,7 @@ const rp = require('request-promise')
  *  handle paged result sets. Calling clients should not need to specify this.
  * @returns {Object} - The request-promise for this API request.
  */
-export function list(client, url, locationsAccum) {
+function getLocationsFunction(client, url, locationsAccum) {
     let options = {
         method: 'GET',
         url: client.url + "locations",
@@ -46,7 +46,7 @@ export function list(client, url, locationsAccum) {
  * @param {string} locationId - The selected Location ID
  * @returns {Object} - The request-promise for this API request.
  */
-export function show(client, locationId) {
+function showLocationFunction(client, locationId) {
     let options = {
         method: 'GET',
         url: client.url + "locations/"+locationId,
@@ -57,3 +57,6 @@ export function show(client, locationId) {
     return rp(options)
 }
 
+
+
+export {getLocationsFunction, showLocationFunction}
