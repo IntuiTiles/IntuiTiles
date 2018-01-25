@@ -1,6 +1,6 @@
 {
   "name": "intuitiles",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "*PRE-ALPHA* Home Automation Dashboard System",
   "author": "intuitiles",
   "homepage": "https://github.com/intuitiles/intuitiles",
@@ -9,7 +9,7 @@
   "module": "src/index.js",
   "scripts": {
     "clean": "rimraf dist && mkdirp dist/legacy && mkdirp dist/legacy-umd",
-    "build:legacy": "BABEL_ENV=legacy babel src --source-maps --no-comments --out-dir dist/legacy/",
+    "build:legacy": "SET BABEL_ENV=legacy babel src --source-maps --no-comments --out-dir dist/legacy/",
     "build:legacy-umd": "rollup --config",
     "build": "npm run clean && run-p build:**"
   },
