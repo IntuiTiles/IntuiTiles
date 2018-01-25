@@ -1,4 +1,4 @@
-#IntuiTiles v0.0.6 *PRE-ALPHA*
+#IntuiTiles v0.0.7 *PRE-ALPHA*
 
 Attribution List:
 
