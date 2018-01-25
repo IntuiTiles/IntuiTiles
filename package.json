@@ -1,6 +1,6 @@
 {
   "name": "intuitiles",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "*PRE-ALPHA* Home Automation Dashboard System",
   "author": "intuitiles",
   "homepage": "https://github.com/intuitiles/intuitiles",
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "columnify": "^1.5.4",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "request-promise-native": "^1.0.5"
